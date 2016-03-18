@@ -7,8 +7,8 @@ Have you ever tried to write a simple website without php or rails help and got 
 Html Assistant is a GUI program that saves your time with copying the same navigation/footer/header across all .html pages in specified folder.
 
 1. Click on open folder button
-2. Specify class of the navigation in replace text box
-	``` <div class="navigation"> ```
+2. Specify class of the navigation in replace text box. For example:
+	> &lt; div class="navigation" &gt; 
 3. Write new navigation in the text field below
 4. Press Update Navigation button
 5. That's it. No more copy & pasting :)
