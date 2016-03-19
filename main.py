@@ -30,7 +30,7 @@ def replace(folder, search_for):
     console_end = console.get_buffer().get_end_iter()
     console.get_buffer().insert(console_end, "\n")
  
-    # finding and replacing navigation for each file
+# finding and replacing navigation for each file
     for file in html_files:
         # reading file
         current_file = open(file, 'r')
@@ -54,7 +54,7 @@ def replace(folder, search_for):
 
             
             final_text = current_file_text[0:start] + new_navigation_text + current_file_text[end:]
-            # write file
+# write file
             output_file = open(file, 'w')
             output_file.write(final_text)
             output_file.close()
@@ -63,14 +63,17 @@ def replace(folder, search_for):
             console.get_buffer().insert(console_end_iter, file + " => Updated" + "\n")
             print(file + " -> Updated")
         else:
-# add navigation if it doesnt exist
+# tell user that element doesn't exist 
             console_end_iter = console.get_buffer().get_end_iter()
             console.get_buffer().insert(console_end_iter, file + " => this element does not exist" + "\n")
             print(file + " -> this element does not exist")
 
 # end of replace function
 
+
 class Handler:
+
+
     def selectFolder(self, button):
         folderChooserModal = builder.get_object("folderChooserModal")
         response = folderChooserModal.run()
@@ -86,7 +89,10 @@ class Handler:
             filesTreeView =  builder.get_object("filesTreeView")
             htmlFilesList = builder.get_object("htmlFilesList")
             filesTreeView.set_model(htmlFilesList)
-            
+
+# clears list if user decides to pick another project 
+            htmlFilesList.clear()
+
             all_files = os.listdir(filesPath[-1])
             html_files = [] 
             for file in all_files:
@@ -96,16 +102,11 @@ class Handler:
             for file in html_files:
                 htmlFilesList.append([file])
 
-# show files in Tree View
-            for i, col_title in enumerate(["Files:"]):
-                renderer = Gtk.CellRendererText()
-                column = Gtk.TreeViewColumn(col_title, renderer, text=i)
-                filesTreeView.append_column(column)
-
 # hides openFolderDialog
             folderChooserModal.hide()
         else:
             folderChooserModal.hide()
+
 
     def updateNavigation(self, button):
         print(filesPath)
@@ -119,6 +120,8 @@ class Handler:
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
 
+
+# load css styling
 style_provider = Gtk.CssProvider()
 css = open('style.css', 'rb')
 css_data = css.read()
@@ -131,6 +134,7 @@ Gtk.StyleContext.add_provider_for_screen(
         Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         )
 
+# show main window & connect signals
 builder = Gtk.Builder()
 builder.add_from_file("assistant.glade")
 # connect signals
@@ -140,4 +144,12 @@ builder.connect_signals(Handler())
 window = builder.get_object("window1")
 window.set_title("Html Assistant")
 window.show_all()
+
+# show Files column in Tree View
+for i, col_title in enumerate(["Files:"]):
+    renderer = Gtk.CellRendererText()
+    filesTreeView = builder.get_object("filesTreeView")
+    column = Gtk.TreeViewColumn(col_title, renderer, text=i)
+    filesTreeView.append_column(column)
+
 Gtk.main()
