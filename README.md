@@ -13,6 +13,8 @@ A) Open every file and paste our navigaton in each file. Every time we make addi
 
 B) Use Html Assistant
 
+![alt text](https://github.com/GreatDanton/Html-Assistant-GUI/blob/master/screenshot.png "Html Assistant")
+
 ### Option B:
 
 
