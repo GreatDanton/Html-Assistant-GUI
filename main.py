@@ -1,7 +1,7 @@
 import gi
 import os
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 filesPath = [] 
 
@@ -33,7 +33,8 @@ def replace(folder, search_for):
         start_iter = editor.get_buffer().get_start_iter()
         end_iter = editor.get_buffer().get_end_iter()
         new_navigation_text = editor.get_buffer().get_text(start_iter, end_iter, True)
-  
+         
+        console = builder.get_object("consoleOutput")
 
 # if search_for is in current file
         if (search_for in current_file_text):
@@ -52,23 +53,14 @@ def replace(folder, search_for):
             output_file.write(final_text)
             output_file.close()
 
-            console = builder.get_object("consoleOutput")
             console_end_iter = console.get_buffer().get_end_iter()
             console.get_buffer().insert(console_end_iter, file + " => Updated" + "\n")
             print(file + " -> Updated")
         else:
 # add navigation if it doesnt exist
-            if ('<body>' in current_file_text):
-                start = current_file_text.find('<body>') + 6 
-            else:
-                start = current_file_text.find('>')
-  
-            final_text = current_file_text[0:start] + '\n' + new_navigation_text + current_file_text[start:]
-            # write to file
-            output_file = open(file, 'w')
-            output_file.write(final_text)
-            output_file.close()
-            print(file + " -> Navigation added")
+            console_end_iter = console.get_buffer().get_end_iter()
+            console.get_buffer().insert(console_end_iter, file + " => this element does not exist" + "\n")
+            print(file + " -> this element does not exist")
 
 # end of replace function
 
@@ -120,6 +112,18 @@ class Handler:
 # when x is clicked, program exit
     def onDeleteWindow(self, *args):
         Gtk.main_quit(*args)
+
+style_provider = Gtk.CssProvider()
+css = open('style.css', 'rb')
+css_data = css.read()
+css.close()
+
+style_provider.load_from_data(css_data)
+
+Gtk.StyleContext.add_provider_for_screen(
+        Gdk.Screen.get_default(), style_provider,
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
 
 builder = Gtk.Builder()
 builder.add_from_file("assistant.glade")
