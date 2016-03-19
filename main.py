@@ -21,20 +21,21 @@ def replace(folder, search_for):
     print(html_files)
 
 # get text from navigation_editor
-       
+    editor = builder.get_object("navigation_editor")
+    start_iter = editor.get_buffer().get_start_iter()
+    end_iter = editor.get_buffer().get_end_iter()
+    new_navigation_text = editor.get_buffer().get_text(start_iter, end_iter, True)
+     
+    console = builder.get_object("consoleOutput")
+    console_end = console.get_buffer().get_end_iter()
+    console.get_buffer().insert(console_end, "\n")
+ 
     # finding and replacing navigation for each file
     for file in html_files:
         # reading file
         current_file = open(file, 'r')
         current_file_text = current_file.read()
         current_file.close()
-
-        editor = builder.get_object("navigation_editor")
-        start_iter = editor.get_buffer().get_start_iter()
-        end_iter = editor.get_buffer().get_end_iter()
-        new_navigation_text = editor.get_buffer().get_text(start_iter, end_iter, True)
-         
-        console = builder.get_object("consoleOutput")
 
 # if search_for is in current file
         if (search_for in current_file_text):
@@ -44,6 +45,11 @@ def replace(folder, search_for):
                 ending_with = '</div>'
             elif ('<nav' in search_for):
                 ending_with = '</nav>'
+            elif ('<footer' in search_for):
+                ending_with = '</footer>'
+            elif ('<head' in search_for):
+                ending_with = '</head>'
+
             end = current_file_text.find(ending_with, start) + 6
 
             
@@ -132,5 +138,6 @@ builder.connect_signals(Handler())
 
 #showing window
 window = builder.get_object("window1")
+window.set_title("Html Assistant")
 window.show_all()
 Gtk.main()
