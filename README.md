@@ -29,12 +29,10 @@ B) Use Html Assistant
 	</ul>
 </div>
  ```
-
  so we type in the text field (#2 on picture):
  ```
 <div class="navigation
  ```
-
 4. Files from the specified project (step 2) are automatically added into list view (#3 on picture)
 5. Write or paste new navigation in the text field below (#4 on picture) for example:
 ```
