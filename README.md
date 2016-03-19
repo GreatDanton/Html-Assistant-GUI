@@ -18,9 +18,12 @@ B) Use Html Assistant
 ### Option B:
 
 
-1. Run Html Assistant
-2. Click on Open Project button (#1 on picture)
-3. Specify the element you would like to replace (#2 on picture). For example you would like to replace the following div:
+1.) Run Html Assistant
+
+2.) Click on Open Project button (#1 on picture)
+
+3.) Specify the element you would like to replace (#2 on picture). For example you would like to replace the following div:
+
 ```
  <div class="navigation">
 	<ul>
@@ -29,12 +32,17 @@ B) Use Html Assistant
 	</ul>
 </div>
  ```
+ 
  so we type in the text field (#2 on picture):
+ 
  ```
 <div class="navigation
  ```
-4. Files from the specified project (step 2) are automatically added into list view (#3 on picture)
-5. Write or paste new navigation in the text field below (#4 on picture) for example:
+
+4.) Files from the specified project (step 2) are automatically added into list view (#3 on picture)
+
+5.) Write or paste new navigation in the text field below (#4 on picture) for example:
+
 ```
 <div class="new_navigation">
 	<ul>
@@ -44,9 +52,12 @@ B) Use Html Assistant
 	</ul>
 </div>
 ```
-6. Press Update Navigation button (#5 on picture).
-7. See the changes in the console at the bottom of the window (#6 on picture).
-8. That's it. All 10 html files are now updated with the new navigation.
+
+6.) Press Update Navigation button (#5 on picture).
+
+7.) See the changes in the console at the bottom of the window (#6 on picture).
+
+8.) That's it. All 10 html files are now updated with the new navigation.
 
 
 ## Notes:
