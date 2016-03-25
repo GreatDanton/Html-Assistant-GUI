@@ -41,18 +41,44 @@ def replace(folder, search_for):
         if (search_for in current_file_text):
             start = current_file_text.find(search_for)
 
-            if ('<div' in search_for):
-                ending_with = '</div>'
-            elif ('<nav' in search_for):
+            if ('<nav' in search_for):
                 ending_with = '</nav>'
+                end = current_file_text.find(ending_with, start)
+                end = current_file_text.find('>', end) + 1
             elif ('<footer' in search_for):
                 ending_with = '</footer>'
+                end = current_file_text.find(ending_with, start)
+                end = current_file_text.find('>', end) + 1
             elif ('<head' in search_for):
                 ending_with = '</head>'
+                end = current_file_text.find(ending_with, start)
+                end = current_file_text.find('>', end) + 1
 
-            end = current_file_text.find(ending_with, start) + 6
+# if div is in search_for check if navigation is made of nested divs
+            elif ('<div' in search_for):
+                open_tag = current_file_text.find("<div", start + 1)
+                close_tag = current_file_text.find("</div", start + 1)
+                if (close_tag == -1):
+                    console_end_iter = console.get_buffer().get_end_iter()
+                    console.get_buffer().insert(console_end_iter, file + " => please add closing </div> tag" + "\n")
+                    break 
+                elif (open_tag == -1):
+                    end = close_tag + 6
+                elif (close_tag < open_tag):
+                    end = close_tag + 6
+                else:
+                    while(close_tag > open_tag):
+                        open_tag = current_file_text.find("<div", open_tag + 1)
+                        close_tag = current_file_text.find("</div", close_tag + 1)
+                        if (close_tag == -1):
+                            console_end_iter = console.get_buffer().get_end_iter()
+                            console.get_buffer().insert(console_end_iter, file + " => please add closing </div> tag" + "\n")
+                            #print("I AM IN WHILE LOOP")
+                            break 
+                        elif (open_tag == -1):
+                            end = close_tag + 6
+                            break
 
-            
             final_text = current_file_text[0:start] + new_navigation_text + current_file_text[end:]
 # write file
             output_file = open(file, 'w')

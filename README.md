@@ -60,14 +60,12 @@ B) Use Html Assistant
 8.) That's it. All 10 html files are now updated with the new navigation.
 
 
-## Notes:
-If navigation looks like (nested divs):
-```
-  <div class="navigation">
-    <div class="first"> First link </div>
-    <div class="second"> Second link </div>
-  </div>
-```
-Html Assistant will not work correctly. If your navigation consists of nested divs, please do not use this program, as it replaces the content between the desired opening tag (#2 on picture) and the first closing tag.
+## Notes: 
+Html Assistant is working fine if you are looking to replace <nav / <head / <footer <div **without** any div inside.
 
-Html Assistant is working fine if you are looking to replace <nav / <head / <footer <div ** without ** any div inside.
+Nested divs should be working now, before you use Html Assistant on nested divs, make sure you have a backup of your files.
+
+
+## Running Html Assistant:
+
+In order to run this program you need python3 & gtk+ 3 installed on your computer.
