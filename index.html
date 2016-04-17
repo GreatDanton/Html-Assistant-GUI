@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Html Assistant</title>
+  <meta name="description" content="Html Assistant is a tool for helping you
+  with creating static pages on Github, by copying the same parts of the code
+  into all .html files in specified folder.">
+  <meta name="author" content="Jan Pribošek">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href='https://fonts.googleapis.com/css?family=Quattrocento+Sans&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/main.css">
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+
+    <h1 class="index-title"> Html Assistant </h1>
+
+    <div class="navigation">
+      <a href="index.html" class="button">Home</a>
+      <a href="documentation.html" class="button">Documentation</a>
+    </div>
+
+
+    <section>
+      <div class="row">
+        <div class="one-half column">
+          <h2 class="underlined-title">What</h2>
+          <p> Html Assistant is Gui program that saves your time with pasting the same navigation / footer / head across all .html pages in the chosen folder.
+          </p>
+          <p> If you ever tried to write a simple website without Php, Rails, Django or other dynamic language / framework and got annoyed with copying and pasting head, navigation or footer across all pages this software was made to solve such issue.</p>
+        </div>
+        <div class="one-half column">
+          <img src="images/screenshot2.png">
+        </div>
+      </div>
+    </section>
+
+
+    <section>
+      <h2 class="underlined-title">Example</h2>
+      <p>Let's say we are working on 10 html files long website. Since it will be simple static website we can host it on Github pages, but this means we can use Html, Css and Javascript only.</p>
+
+      <p> Now we decide to add one link to the navigation bar. In order to change navigation bar we can:</p>
+
+      <ul>
+        <li>Open every file and add the change manually</li>
+        <li>Add navigation code to the files via Javascript</li>
+        <li>Use Html Assistant </li>
+      </ul>
+
+      <p> While adding navigation code via Javascript seems like a nice workaround for this problem, but for anyone browsing the web with Javascript disabled, the website will be pretty much unusable.</p>
+
+      <p>So we are left with either copying and pasting the code in every file for each change we make (we want the page to looks consistent), or let the program do this boring stuff for us. </p>
+    </section>
+
+    <section>
+      <h2 class="underlined-title">Finally</h2>
+      <p> Hopefully the story above conviced you in the usefulness of the program, for detailed instructions about downloading & using Html Assistant please check Documentation page. </p>
+      <a href="documentation.html" class="button">Take me to Documentation </a>
+    </section>
+
+
+  </div>
+
+  <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <footer>
+    <button id="back-to-top"> Back to top </button>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js">
+  </script>
+  <script src="js.js"></script>
+</body>
+
+</html>
