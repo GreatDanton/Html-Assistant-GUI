@@ -14,4 +14,4 @@ Html Assistant is a GUI program that saves your time with copying and pasting th
 In order to run this program you need python3 & gtk+ 3 installed on your computer.
 
 
-### For detailed instructions see [Html Assistant website](http://greatdanton.github.io/Html-Assistant-GUI/)
+### For detailed instructions about downloading and using see [Html Assistant website](http://greatdanton.github.io/Html-Assistant-GUI/)
