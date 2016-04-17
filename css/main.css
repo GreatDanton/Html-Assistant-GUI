@@ -67,6 +67,8 @@ section {
 
 .code {
   line-height: 0.8;
+  font-family: 'Monaco', 'Inconsolata', ;
+  font-size: 12px;
 }
 
 .step-by-step li{
