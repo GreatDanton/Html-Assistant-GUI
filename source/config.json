@@ -1,9 +1,9 @@
 {
-    "latestInEditor": "",
+    "replaceEditor": "<div class=\"navigation\">\n\t<ul>\n\t\t<li> Home </li>\n\t\t<li> About </li>\n\t\t<li> Contact</li>\n\t<ul>\n</div>",
     "templates": {
-        "Template 2": "My new template",
-        "Template 1": "<!DOCTYPE HTML>\n\n<head>\n\t<title> </title>\n</head>\n\n<body>\n\n</body>\n\n</html>"
+        "Template 1": "<!DOCTYPE HTML>\n\n<head>\n\t<title> </title>\n</head>\n\n<body>\n\n</body>\n\n</html>",
+        "Template 2": "My new template"
     },
-    "latestFindAndReplace": "",
+    "latestFindAndReplace": "<div class=\"navigation",
     "path": "/home/jan/Documents/Python/html_assistant/master/test_files"
 }

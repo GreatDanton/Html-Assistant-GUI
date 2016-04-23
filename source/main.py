@@ -375,7 +375,7 @@ class Handler:
 
 # store project path into config.json
             DATA["path"] = filesPath[-1]
-            with open("config.json", "w") as outfile:
+            with open(PROGRAM_DIRECTORY + "/config.json", "w") as outfile:
                 json.dump(DATA, outfile, indent=4)
             
 # hides openFolderDialog
@@ -392,6 +392,21 @@ class Handler:
         path = projectPath.get_text()
         replace(path, search_for)
 
+# update path
+        tb_replaceNav = builder.get_object("replaceNavBox")
+
+        replace_editor = builder.get_object("navigation_editor")
+        start_iter = replace_editor.get_buffer().get_start_iter()
+        end_iter = replace_editor.get_buffer().get_end_iter()
+        editor_text = replace_editor.get_buffer().get_text(start_iter, end_iter, True)
+
+
+        DATA["latestFindAndReplace"] = tb_replaceNav.get_text()
+        DATA["replaceEditor"] = editor_text 
+        DATA["path"] =  path 
+        with open(PROGRAM_DIRECTORY + "/config.json", "w") as outfile:
+            json.dump(DATA, outfile, indent=4)
+            
 
 # when x is clicked, program exit
     def onDeleteWindow(self, *args):
@@ -438,6 +453,11 @@ htmlFilesList = builder.get_object("htmlFilesList")
 for file in html_files:
     htmlFilesList.append([file])
 
+tb_findAndReplace = builder.get_object("replaceNavBox")
+tb_findAndReplace.set_text(DATA["latestFindAndReplace"])
+
+replace_editor = builder.get_object("navigation_editor")
+replace_editor.get_buffer().set_text(DATA["replaceEditor"])
 
 
 # show Files column in Tree View
