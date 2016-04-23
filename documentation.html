@@ -57,21 +57,23 @@
       <ol>
         <h5><li><a id="installation-link" class="doc-link">Installation</a> </li></h5>
         <h5><li><a id="usage-link" class="doc-link">Usage </a></li></h5>
+        <h5><li><a id="menubar-link" class="doc-link">Menu bar</a></li></h5>
         <h5><li><a id="contact-link" class="doc-link">Contact </a></li></h5>
         <h5><li><a id="roadmap-link" class="doc-link">Roadmap</a></li></h5>
+
       </ol>
-    <section>
+    </section>
 
 
         <section id="installation">
-          <h3 class="underlined-title"> 1. Installation </h3>
+          <h3 class="underlined-title">1. Installation</h3>
           <p> Most of the guides, tend to forget about the newbies, that do not know what to do with source files obtained from Github, so I will try to describe everything in detail.</p>
-
-          <p> First you need to download source files (they are in source folder). Source folder should contain three items: </p>
+          <p> First you need to download source files (they are in source folder). Source folder should contain four items: </p>
           <ul>
             <li> main.py </li>
             <li> assistant.glade </li>
             <li> style.css </li>
+            <li> config.json </li>
           </ul>
 
 
@@ -80,7 +82,9 @@
           <a class="button button-primary" href="https://github.com/GreatDanton/Html-Assistant-GUI" target="_blank"> See on Github</a>
 
 
-          <p class="margin-25">Now delete all the folders that you don't need (keep only source folder). Next follow the instruction below (1.1 or 1.2),according to your operating system. </p>
+          <p class="margin-25">Now delete all the folders that you don't need (keep
+          only source folder). Next follow the instruction below (1.1 or 1.2),
+          according to your operating system. </p>
 
           <div class="quote">
             In case you are wondering what each of the files does:
@@ -88,6 +92,8 @@
               <li> main.py - contains all python code </li>
               <li> assistant.glade - defines user interface </li>
               <li> style.css - changes style of the user interface </li>
+              <li> config.json - it's like a database for Html Assistant.
+              It contains templates, latest used project path, etc...</li>
             </ul>
 
           </div>
@@ -114,10 +120,11 @@
 
         <section id="usage">
           <h3 class="underlined-title"> 2. Usage </h3>
-          <img class="centered" src="images/screenshot.png" alt="html assistant screenshot">
+          <img class="centered" src="images/htmlAssistant_numbers.png" alt="html assistant screenshot">
 
           <ol class="step-by-step" style="margin-top: 60px">
-            <li> First we Run Html Assistant, I prefer to run it via command line. I cd to the right directory (where Html Assistant is located) and type
+            <li> First we Run Html Assistant, I prefer to run it via command line.
+            I cd to the right directory (where Html Assistant is located) and type
               <code>python3 main.py</code>.
             </li>
 
@@ -126,9 +133,14 @@
       [number 1 on picture]</strong> to select folder which contains .html files.
             </li>
 
-            <li> Files from the specified project (folder) are automatically added into list view <strong>[number 3 on picture]</strong>
+            <li>Path is automatically added to the textbox <strong>[number 2 on
+              picture]</strong>. Files from the specified project (folder) are
+              automatically added into list view <strong>[number 3 on
+              picture]</strong>.</li>
 
-              <li> Specify the element you would like to replace <strong>[number 2 on picture]</strong>. For example you would like to replace the following div:
+              <li> Specify the element you would like to replace <strong>[number 4
+              on picture]</strong>. For example you would like to replace the
+              following div:
 
                 <pre><code class="code">
 &lt;div class=&quot;navigation&quot;&gt;<br />
@@ -136,13 +148,13 @@
        &lt;li&gt; First link &lt;/li&gt;<br />
        &lt;li&gt; Second link &lt;/li&gt;<br />
    &lt;/ul&gt;<br />
-&lt;/div&gt;</code></pre> so we type in the text field <strong>[number 2 on picture]</strong>
+&lt;/div&gt;</code></pre> so we type in the text field <strong>[number 4 on picture]</strong>
                 <code> &lt;div class=&quot;navigation </code>
               </li>
 
 
               <li>Write or paste new navigation in the editor window <strong>
-       [number 4 on picture]</strong> for example:
+       [number 5 on picture]</strong> for example:
                 <pre><code class="code">
 &lt;div class=&quot;new_navigation&quot;&gt;<br />
     &lt;ul&gt;<br />
@@ -153,18 +165,18 @@
 &lt;/div&gt;</code></pre>
                 <br>
                 <div class="quote">
-                  Make sure that you write whole navigation not just the inside part (ul & li). Html Assistant rewrites the entire part of the page specified in [number 2 on picture] to the closing &lt;div&gt;.
+                  Make sure that you write whole navigation not just the inside part (ul & li). Html Assistant rewrites the entire part of the page specified in [number 4 on picture] to the closing tag.
                 </div>
               </li>
 
               <li> When you are done with writing your new navigation press
-                <button class="button-primary"> Update Navigation</button> button <strong>[number 5 on picture]</strong>
+                <button class="button-primary"> Update Navigation</button> button <strong>[number 6 on picture]</strong>.
               </li>
 
-              <li> You can see which files changed in console at the bottom of the Html Assistant window <strong>[number 6 on picture]</strong>
+              <li> You can see which files changed in console at the bottom of the Html Assistant window <strong>[number 7 on picture]</strong>.
               </li>
 
-              <li> That's it. All files from the project folder are now updated with the new navigation </li>
+              <li> That's it. All files from the project folder are now updated with the new navigation. </li>
 
           </ol>
 
@@ -176,23 +188,69 @@
 
         </section>
 
+        <section id="menubar">
+          <h3 class="underlined-title">3. Menu bar</h3>
+
+          <img class="centered" src="images/menubar_numbers.png" alt="menubar">
+
+          <ol>
+            <li><a id="newFile-link" class="doc-link"> New file</a> </li>
+            <li><a id="openProject-link" class="doc-link"> Open project </a></li>
+            <li><a id="editTemplates-link" class="doc-link"> Edit templates </a> </li>
+            <li><a id="help-link" class="doc-link"> Help </a></li>
+            <li><a id="about-link" class="doc-link"> About </a></li>
+          </ol>
+
+        <ol>
+          <div class="row" id="newFile">
+            <h4 class="underlined-subtitle"><li> New File </li></h4>
+            <p> Opens window where you are able to select predefined templates
+            and create new html files in the current project folder.</p>
+          </div>
+
+          <div class="row" id="openProject">
+            <h4 class="underlined-subtitle"><li> Open Project </li></h4>
+            <p> Select the folder in which you would like to keep the
+              navigation / footer / header consistent.</p>
+          </div>
+
+          <div class="row" id="editTemplates">
+            <h4 class="underlined-subtitle"><li> Edit Templates </li></h4>
+            <p> Opens a window, where you are able to create new, update or
+            delete existing templates.</p>
+          </div>
+
+          <div class="row" id="help">
+            <h4 class="underlined-subtitle"><li> Help </li></h4>
+            <p> Opens documentation website in your default browser.</p>
+          </div>
+
+          <div class="row" id="about">
+            <h4 class="underlined-subtitle"><li> About </li></h4>
+            <p> Displays all information about Html Assistant.</p>
+          </div>
+
+        </ol>
+        </section>
+
 
 
 
         <section id="contact">
-          <h3 class="underlined-title">3. Contact </h3>
+          <h3 class="underlined-title">4. Contact </h3>
           <p> If you find any bug, please do not hesitate to create an issue on Github and I will try to fix it. </p>
 
-          <p> I hope you have as much fun using this software, as much as I had writing it. If you would like to share your story how this program helped you when creating website, feel free to send me an email, which you can find on my <a target="_blank"
+          <p> I hope you have as much fun using this software, as much as I had writing it. If you would like to share your story how this program helped you when creating website, feel free to contact me via my <a target="_blank"
               href="http://greatdanton.github.io/" class="button"> Website</a></p>
         </section>
 
         <section id="roadmap">
-          <h3 class="underlined-title">4. Roadmap </h3>
+          <h3 class="underlined-title">5. Roadmap </h3>
           <ul>
-            <li> Icon and .desktop file </li>
-            <li> An ability to save html templates and create them with one click </li>
-            <li> Saving the path of the last project</li>
+            <li> Icon </li>
+            <li> .desktop file. </li>
+            <li> Extra option that will turn html code into code for
+            embedding on your website - <i> Convert the characters '&', '<', '>', " (double quote), and ' (apostrophe), in a string to their corresponding HTML entities.<i></li>
           </ul>
           <div class="quote">
             If you have the time and will to implement any of the desired features

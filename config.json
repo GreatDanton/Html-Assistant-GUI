@@ -1,0 +1,8 @@
+{
+    "path": "/home/jan/Documents/Python/html_assistant/master/test_files",
+    "templates": {
+        "secondtemplate": "#template3",
+        "firstTemplate": "this is template \n one",
+        "thirdTemplate": "#template2"
+    }
+}
