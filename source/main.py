@@ -143,22 +143,61 @@ class Handler:
 
 # opens newFile modal when newFile icon is clicked
     def menu_click_newFile(self, button):
-        newFile = builder.get_object("newFileModal")
+        templatePicker = builder.get_object("newFile_templatePicker")
+        templateList = builder.get_object("templateStorage")
+        templateTreeView = builder.get_object("newFile_templateTreeView")
+        editor = builder.get_object("newFile_templateViewer")
 
-# if path exist change directory to last opened project
+# append template title to tree view
+        # append names from template to templateTreeView. On select show data from DATA in editor
+        templateList.clear()
+        for template in DATA["templates"]:
+            templateList.append([template])
+
+        if len(TEMPLATES) >= 1:
+            templateTreeView.set_cursor(0)
+
+        response = templatePicker.run()
+        if response == -4:
+            templatePicker.hide()
+
+    def templatePicker_row_click(self, selection):
+        treeView = builder.get_object("newFile_templateTreeView")
+        editor = builder.get_object("newFile_templateViewer")
+
+        selected = selection.get_selection()
+        selected = selected.get_selected()
+
+        model, treeiter = selected
+        if treeiter != None:
+            templateName = model[treeiter][0]
+
+        #if templateName in TEMPLATES:
+        editor.get_buffer().set_text(DATA["templates"][templateName])
+
+    def newFile_templatePicker_ok_click(self, button):
+        newFileModal = builder.get_object("newFileModal")
+
         if ('/' in DATA["path"]):
             os.chdir(DATA["path"])
 
-        newFile.set_current_name("Untitled.html")
-        response = newFile.run()
-        if response == -4:
-            newFile.hide()
+        newFileModal.set_current_name("Untitled.html")
 
+        response = newFileModal.run()
+        
+        if response == -4:
+            newFileModal.hide()
 
     def newFileModal_save_click(self, button):
+        templatePicker = builder.get_object("newFile_templatePicker")
         newFileModal = builder.get_object("newFileModal")
         fileName = newFileModal.get_current_name()
+        editor = builder.get_object("newFile_templateViewer")
 
+        start_iter = editor.get_buffer().get_start_iter()
+        end_iter = editor.get_buffer().get_end_iter()
+        editor_text = editor.get_buffer().get_text(start_iter, end_iter, True)
+        
         if os.path.isfile(fileName):
             msgModal = builder.get_object("msg_fileAlreadyExist")
             modal_response = msgModal.run()
@@ -166,8 +205,11 @@ class Handler:
                 msgModal.hide()
         else:
             output_file = open(fileName, 'x')
-# write to output file => add from template
+            output_file.write(editor_text)
             output_file.close()
+
+            newFileModal.hide()
+            templatePicker.hide()
 
 
 ##### EDIT TEMPLATE MENU & MODAL  HANDLERS ######
@@ -445,6 +487,9 @@ window.show_all()
 with open('config.json') as data_file:
     DATA = json.load(data_file)
 
+for template in DATA["templates"]:
+    TEMPLATES.append(template)
+
 tb_projectPath = builder.get_object("tb_projectPath")
 tb_projectPath.set_text(DATA["path"])
 
@@ -474,6 +519,11 @@ for i, col_title in enumerate(["Templates:"]):
     templateTreeView = builder.get_object("templateTreeView")
     column = Gtk.TreeViewColumn(col_title, renderer, text=i)
     templateTreeView.append_column(column)
+
+
+# append "Templates" to tree view in new file modal
+templateTreeView = builder.get_object("newFile_templateTreeView")
+templateTreeView.append_column(Gtk.TreeViewColumn("Templates:", Gtk.CellRendererText(), text=i))
 
 
 Gtk.main()

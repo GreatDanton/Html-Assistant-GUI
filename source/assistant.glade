@@ -31,6 +31,7 @@
     <property name="width_request">500</property>
     <property name="height_request">500</property>
     <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Html Assistant</property>
     <property name="window_position">center</property>
     <signal name="delete-event" handler="onDeleteWindow" swapped="no"/>
     <child>
@@ -811,6 +812,7 @@
   </object>
   <object class="GtkFileChooserDialog" id="newFileModal">
     <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Save File</property>
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">mainWindow</property>
@@ -871,11 +873,13 @@
     </child>
     <action-widgets>
       <action-widget response="-4">newFileModal_cancel</action-widget>
+      <action-widget response="1">newFileModal_save</action-widget>
     </action-widgets>
   </object>
   <object class="GtkMessageDialog" id="msg_fileAlreadyExist">
     <property name="can_focus">False</property>
     <property name="valign">baseline</property>
+    <property name="title" translatable="yes">Warning!</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">newFileModal</property>
     <property name="message_type">warning</property>
@@ -922,6 +926,167 @@
     </child>
     <action-widgets>
       <action-widget response="-4">button1</action-widget>
+    </action-widgets>
+  </object>
+  <object class="GtkDialog" id="newFile_templatePicker">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Pick a template</property>
+    <property name="modal">True</property>
+    <property name="type_hint">dialog</property>
+    <property name="transient_for">mainWindow</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="gtkbox">
+        <property name="width_request">500</property>
+        <property name="height_request">350</property>
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="dialog-action_area2">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="button3">
+                <property name="label">gtk-cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="button2">
+                <property name="label">gtk-ok</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+                <signal name="clicked" handler="newFile_templatePicker_ok_click" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box15">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="spacing">5</property>
+            <child>
+              <object class="GtkLabel" id="label8">
+                <property name="width_request">150</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Templates:</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label7">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Preview Template:</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="padding">5</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box14">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="border_width">3</property>
+            <property name="spacing">5</property>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolledwindow6">
+                <property name="width_request">150</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="shadow_type">in</property>
+                <child>
+                  <object class="GtkTreeView" id="newFile_templateTreeView">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="has_default">True</property>
+                    <property name="model">templateStorage</property>
+                    <property name="rules_hint">True</property>
+                    <property name="search_column">0</property>
+                    <property name="activate_on_single_click">True</property>
+                    <signal name="cursor-changed" handler="templatePicker_row_click" swapped="no"/>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="treeview-selection5"/>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolledwindow7">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="shadow_type">in</property>
+                <child>
+                  <object class="GtkTextView" id="newFile_templateViewer">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="pixels_above_lines">3</property>
+                    <property name="wrap_mode">char</property>
+                    <property name="justification">fill</property>
+                    <property name="left_margin">5</property>
+                    <property name="right_margin">5</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-4">button3</action-widget>
     </action-widgets>
   </object>
 </interface>
