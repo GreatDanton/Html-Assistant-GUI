@@ -6,7 +6,7 @@ Have you ever tried to write a simple website without php or rails help and got 
 
 Html Assistant is a GUI program that saves your time with copying and pasting the same navigation/footer/header across all .html pages in the specified folder, and keep your website consistent.
 
-![alt text](https://github.com/GreatDanton/Html-Assistant-GUI/blob/master/screenshot.png "Html Assistant")
+![alt text](https://github.com/GreatDanton/Html-Assistant-GUI/blob/master/htmlAssistant.png "Html Assistant")
 
 
 ## Running Html Assistant:
