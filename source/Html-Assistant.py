@@ -2,7 +2,7 @@
 #  ======= HTML ASSISTANT ========
 #
 # Author: Jan Pribosek
-# Version: 0.1.0
+# Version: 0.2.0
 #
 # ======= LICENSE =======
 #
@@ -111,7 +111,6 @@ def replace(folder, search_for):
                         if (close_tag == -1):
                             console_end_iter = console.get_buffer().get_end_iter()
                             console.get_buffer().insert(console_end_iter, file + " => please add closing </div> tag" + "\n")
-                            #print("I AM IN WHILE LOOP")
                             break 
                         elif (open_tag == -1):
                             end = close_tag + 6
@@ -136,6 +135,7 @@ def replace(folder, search_for):
 
 
 class Handler:
+
 
 # main menu button click handlers
 
@@ -165,6 +165,7 @@ class Handler:
         treeView = builder.get_object("newFile_templateTreeView")
         editor = builder.get_object("newFile_templateViewer")
 
+# get currently selected name from tree view
         selected = selection.get_selection()
         selected = selected.get_selected()
 
@@ -194,10 +195,13 @@ class Handler:
         fileName = newFileModal.get_current_name()
         editor = builder.get_object("newFile_templateViewer")
 
+# get text from editor window
         start_iter = editor.get_buffer().get_start_iter()
         end_iter = editor.get_buffer().get_end_iter()
         editor_text = editor.get_buffer().get_text(start_iter, end_iter, True)
         
+# if file exists in the project directory, display warning modal,
+# else create new file
         if os.path.isfile(fileName):
             msgModal = builder.get_object("msg_fileAlreadyExist")
             modal_response = msgModal.run()
@@ -212,6 +216,7 @@ class Handler:
             templatePicker.hide()
 
 
+
 ##### EDIT TEMPLATE MENU & MODAL  HANDLERS ######
 
 # opens editTemplate modal when editTemplate icon is clicked
@@ -220,30 +225,26 @@ class Handler:
         templateTreeView = builder.get_object("templateTreeView")
         templateList = builder.get_object("templateStorage")
 
-# load json file (to read templates)
-        with open(PROGRAM_DIRECTORY + '/config.json') as data_file:
-            DATA = json.load(data_file)
-
         templateList.clear()
         
         for template in DATA["templates"]:
             templateList.append([template])
             TEMPLATES.append(template)
 
+# select first row if 1 template exist
         if len(TEMPLATES) >= 1:
-# select first row
             templateTreeView.set_cursor(0)
-
 
         response = editTemplate.run()
         if response == -4:
             editTemplate.hide()
     
+
 # add template
     def editTemplate_addTemplate_click(self, button):
         templateTreeView = builder.get_object("templateTreeView")
         templateList = builder.get_object("templateStorage")
-
+        tb_templateName = builder.get_object("editTemplate_templateName")
 # add to template list
         all_files = [];
         for row in templateList:
@@ -255,14 +256,12 @@ class Handler:
 # if untitled name exist in the all_files array add - number
         name = 'Untitled'
         i = 1
-
         while (name in all_files):
             name = 'Untitled' + '-' + str(i)
             i += 1
 
 # add new name to the View & update text box
         templateList.append([name])
-        tb_templateName = builder.get_object("editTemplate_templateName")
         tb_templateName.set_text(name)
        
 # select/focus last created element
@@ -277,12 +276,12 @@ class Handler:
 # delete template
     def editTemplate_deleteTemplate_click(self, button):
         templateTreeView = builder.get_object("templateTreeView")
+        templateList = builder.get_object("templateStorage")
+
         selected = templateTreeView.get_selection()
         selected = selected.get_selected()
 
 # remove selected row
-        templateList = builder.get_object("templateStorage")
-
         print(selected[1])
         model, treeiter = selected
         if treeiter != None:
@@ -293,7 +292,7 @@ class Handler:
             index = TEMPLATES.index(delete_template_name)
             del TEMPLATES[index]
             del DATA["templates"][delete_template_name]
-           
+# update config.json   
             with open(PROGRAM_DIRECTORY + "/config.json", "w") as outfile:
                 json.dump(DATA, outfile, indent=4)
 
@@ -304,6 +303,7 @@ class Handler:
             tb_templateName = builder.get_object("editTemplate_templateName")
             tb_templateName.set_text("")
 
+
 # save template
     def editTemplate_saveTemplate_click(self, button):
 
@@ -312,13 +312,13 @@ class Handler:
         editor = builder.get_object("editTemplate_editor")
         tb_templateName = builder.get_object("editTemplate_templateName")
 
+# get name of selected row
         selected = templateTreeView.get_selection()
         selected = selected.get_selected()
 
         model, treeiter = selected
         if treeiter !=None:
             name = model[treeiter][0]
-        
         selected = name
 
 # get text from templateName text box
@@ -328,7 +328,8 @@ class Handler:
         start_iter = editor.get_buffer().get_start_iter()
         end_iter = editor.get_buffer().get_end_iter()
         editor_text = editor.get_buffer().get_text(start_iter, end_iter, True)
-     
+
+# update DATA and config.json
         DATA["templates"][new_name] = editor_text
 
         if selected in TEMPLATES:
@@ -343,7 +344,6 @@ class Handler:
             TEMPLATES[templates_index] = new_name
             
             templateList[treeiter][0] = new_name
-# UPDATE VIEW
         else:
             DATA["templates"][new_name] = editor_text
             with open(PROGRAM_DIRECTORY + "/config.json", "w") as outfile:
@@ -356,11 +356,10 @@ class Handler:
     def templateTreeView_row_click(self, selection):
         templateTreeView = builder.get_object("templateTreeView")
         templateEditor = builder.get_object("editTemplate_editor")
+        tb_templateName = builder.get_object("editTemplate_templateName")
 
         selected = selection.get_selection()
         selected = selected.get_selected()
-        
-        tb_templateName = builder.get_object("editTemplate_templateName")
 
         model, treeiter = selected
         if treeiter != None:
@@ -372,11 +371,13 @@ class Handler:
         else:
             templateEditor.get_buffer().set_text("")
 
+########## HELP ########## 
 # opens web browser when help icon is clicked
     def menu_click_help(self, button):
         webbrowser.open(documentation_url)
 
 
+########## ABOUT ##########  
 # open about modal when about icon is clicked
     def menu_click_about(self, button):
         about_modal = builder.get_object("about_modal")
@@ -385,6 +386,7 @@ class Handler:
             about_modal.hide()
 
 
+########## OPEN PROJECT ########## 
     def menu_click_openProject(self, button):
         folderChooserModal = builder.get_object("folderChooserModal")
         response = folderChooserModal.run()

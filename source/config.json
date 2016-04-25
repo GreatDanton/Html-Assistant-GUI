@@ -1,9 +1,9 @@
 {
-    "templates": {
-        "Default": "<!DOCTYPE html>\n\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title></title>\n\t<meta name=\"author\" content=\"\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n</head>\n\n<body>\n\n</body>\n\n</html>",
-        "None": ""
-    },
     "replaceEditor": "<div class=\"navigation\">\n\t<ul>\n\t\t<li> Home </li>\n\t\t<li> About </li>\n\t\t<li> Contact</li>\n\t<ul>\n</div>",
+    "templates": {
+        "None": "",
+        "Default": "<!DOCTYPE html>\n\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title></title>\n\t<meta name=\"author\" content=\"\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n</head>\n\n<body>\n\n</body>\n\n</html>"
+    },
     "latestFindAndReplace": "<div class=\"navigation",
     "path": "/home/jan/Documents/Python/html_assistant/master/test_files"
 }
