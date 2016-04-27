@@ -184,9 +184,9 @@ class Handler:
 
         newFileModal.set_current_name("Untitled.html")
 
-        response = newFileModal.run()
+        response1 = newFileModal.run()
         
-        if response == -4:
+        if response1 == -4:
             newFileModal.hide()
 
     def newFileModal_save_click(self, button):
@@ -215,6 +215,10 @@ class Handler:
             newFileModal.hide()
             templatePicker.hide()
 
+# close save file modal on cancel click
+    def newFileModal_cancel_click(self, button):
+        fileModal = builder.get_object("newFileModal")
+        fileModal.hide()
 
 
 ##### EDIT TEMPLATE MENU & MODAL  HANDLERS ######
