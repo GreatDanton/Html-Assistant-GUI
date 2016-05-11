@@ -34,6 +34,7 @@ import gi
 import os
 import webbrowser
 import json
+import re
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk
 
@@ -454,7 +455,26 @@ class Handler:
         DATA["path"] =  path 
         with open(PROGRAM_DIRECTORY + "/config.json", "w") as outfile:
             json.dump(DATA, outfile, indent=4)
-            
+
+# convert html into text for embedding code into websites
+    def convertHtmlButton_click(self, button):
+        input_area = builder.get_object("convertHtml_input")
+        output_area = builder.get_object("convertHtml_output")
+        
+        input_start = input_area.get_buffer().get_start_iter()
+        input_end = input_area.get_buffer().get_end_iter()
+
+# get text from input text area
+        input_text = input_area.get_buffer().get_text(input_start, input_end, True)
+        
+# convert characters &, <, >, " (double quote), ' (apostrophe) to their corresponding Html entities.
+        input_text = re.sub(r"<", "&lt;", input_text)
+        input_text = re.sub(r">", "&gt;", input_text)
+        input_text = re.sub(r'"', "&quot;", input_text)
+        input_text = re.sub(r"'", "&apos;", input_text)
+        input_text = re.sub(r"&", "&amp;", input_text)
+# set text to output area
+        output_area.get_buffer().set_text(input_text)
 
 # when x is clicked, program exit
     def onDeleteWindow(self, *args):
