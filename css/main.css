@@ -58,7 +58,10 @@ img {
   height: 1px;
   width: 250px;
   max-width: 100%;
-  margin: 0 0 10px;
+}
+
+.underlined-subtitle li {
+  margin-bottom: 0px;
 }
 
 section {
@@ -67,7 +70,7 @@ section {
 
 .code {
   line-height: 0.8;
-  font-family: 'Monaco', 'Inconsolata', ;
+  font-family: 'Monaco', 'Inconsolata';
   font-size: 12px;
 }
 
@@ -102,8 +105,9 @@ footer {
   max-width: 100%;
   margin: 20px 20px;
   padding: 20px;
-  background-color: #f1f1f1;
-  border-left: 5px solid #333;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  box-shadow: -5px 0 #333;
   color: #555;
   font-style: italic;
 }
