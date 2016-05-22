@@ -4,6 +4,6 @@ Encoding=UTF-8
 Name=Html Assistant
 Comment=Static websites helper
 Exec=python3 Html-Assistant.py
-Icon=/home/jan/Documents/Python/html_assistant/master/source/icons/HAIcon2.png
+Icon=/home/jan/Documents/PROGRAMMING/Python/html_assistant/master/source/icons/HAIcon2.png
 Terminal=false
 Path=Documents/Python/html_assistant/master/source

@@ -439,22 +439,31 @@ class Handler:
         
         projectPath = builder.get_object("tb_projectPath")
         path = projectPath.get_text()
-        replace(path, search_for)
 
-# update path
-        tb_replaceNav = builder.get_object("replaceNavBox")
+        if os.path.isdir(path):
+# replace search for in desired path
+            replace(path, search_for)
+ # update config.json with latest config
+            tb_replaceNav = builder.get_object("replaceNavBox")
 
-        replace_editor = builder.get_object("navigation_editor")
-        start_iter = replace_editor.get_buffer().get_start_iter()
-        end_iter = replace_editor.get_buffer().get_end_iter()
-        editor_text = replace_editor.get_buffer().get_text(start_iter, end_iter, True)
+            replace_editor = builder.get_object("navigation_editor")
+            start_iter = replace_editor.get_buffer().get_start_iter()
+            end_iter = replace_editor.get_buffer().get_end_iter()
+            editor_text = replace_editor.get_buffer().get_text(start_iter, end_iter, True)
 
 
-        DATA["latestFindAndReplace"] = tb_replaceNav.get_text()
-        DATA["replaceEditor"] = editor_text 
-        DATA["path"] =  path 
-        with open(PROGRAM_DIRECTORY + "/config.json", "w") as outfile:
-            json.dump(DATA, outfile, indent=4)
+            DATA["latestFindAndReplace"] = tb_replaceNav.get_text()
+            DATA["replaceEditor"] = editor_text 
+            DATA["path"] =  path 
+            with open(PROGRAM_DIRECTORY + "/config.json", "w") as outfile:
+                json.dump(DATA, outfile, indent=4)
+
+        else:
+            console = builder.get_object("consoleOutput")
+            c_end = console.get_buffer().get_end_iter()
+
+            console.get_buffer().insert(c_end, "'" + str(path) + "'" + " path does does not exist \n")
+
 
 # convert html into text for embedding code into websites
     def convertHtmlButton_click(self, button):
@@ -517,12 +526,19 @@ for template in DATA["templates"]:
     TEMPLATES.append(template)
 
 tb_projectPath = builder.get_object("tb_projectPath")
-tb_projectPath.set_text(DATA["path"])
 
-html_files = os.listdir(DATA["path"])
-htmlFilesList = builder.get_object("htmlFilesList")
-for file in html_files:
-    htmlFilesList.append([file])
+# check if directory in path exist, set projectPath textbox,
+# add files to files list
+if os.path.isdir(DATA["path"]):
+    tb_projectPath.set_text(DATA["path"])
+
+    html_files = os.listdir(DATA["path"])
+    htmlFilesList = builder.get_object("htmlFilesList")
+    for file in html_files:
+        htmlFilesList.append([file])
+else:
+    tb_projectPath.set_text("")
+   
 
 tb_findAndReplace = builder.get_object("replaceNavBox")
 tb_findAndReplace.set_text(DATA["latestFindAndReplace"])

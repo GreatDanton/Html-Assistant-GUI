@@ -21,6 +21,16 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-refresh</property>
   </object>
+  <object class="GtkListStore" id="templateStorage">
+    <columns>
+      <!-- column-name templates -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkTextBuffer" id="textbuffer1">
+    <property name="text" translatable="yes">Console output:
+</property>
+  </object>
   <object class="GtkWindow" id="mainWindow">
     <property name="name">Html Assistant</property>
     <property name="width_request">500</property>
@@ -434,7 +444,7 @@
                       <object class="GtkTextView" id="convertHtml_input">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="tooltip_text" translatable="yes">Write new navigation in this text field</property>
+                        <property name="tooltip_text" translatable="yes">Input html code you would like to convert</property>
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
                         <property name="pixels_above_lines">3</property>
@@ -458,9 +468,7 @@
                     <property name="width_request">120</property>
                     <property name="height_request">40</property>
                     <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="can_default">True</property>
-                    <property name="has_default">True</property>
+                    <property name="can_focus">False</property>
                     <property name="receives_default">True</property>
                     <property name="halign">center</property>
                     <property name="margin_top">20</property>
@@ -595,197 +603,6 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkFileChooserDialog" id="folderChooserModal">
-    <property name="width_request">500</property>
-    <property name="height_request">500</property>
-    <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Choose folder</property>
-    <property name="modal">True</property>
-    <property name="default_width">500</property>
-    <property name="default_height">500</property>
-    <property name="type_hint">normal</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="transient_for">mainWindow</property>
-    <property name="action">select-folder</property>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="folderChooserModa">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="filechooserdialog-action_area1">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="cancelBtn">
-                <property name="label">gtk-cancel</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="openFolderBtn">
-                <property name="label">gtk-open</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="-4">cancelBtn</action-widget>
-      <action-widget response="1">openFolderBtn</action-widget>
-    </action-widgets>
-  </object>
-  <object class="GtkFileChooserDialog" id="newFileModal">
-    <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Save File</property>
-    <property name="modal">True</property>
-    <property name="type_hint">dialog</property>
-    <property name="transient_for">mainWindow</property>
-    <property name="action">save</property>
-    <property name="do_overwrite_confirmation">True</property>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="filechooserdialog-vbox2">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="filechooserdialog-action_area2">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="newFileModal_cancel">
-                <property name="label">gtk-cancel</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="newFileModal_cancel_click" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="newFileModal_save">
-                <property name="label">gtk-save</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="has_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="has_default">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-                <signal name="clicked" handler="newFileModal_save_click" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="-4">newFileModal_cancel</action-widget>
-      <action-widget response="1">newFileModal_save</action-widget>
-    </action-widgets>
-  </object>
-  <object class="GtkMessageDialog" id="msg_fileAlreadyExist">
-    <property name="can_focus">False</property>
-    <property name="valign">baseline</property>
-    <property name="title" translatable="yes">Warning!</property>
-    <property name="type_hint">dialog</property>
-    <property name="transient_for">newFileModal</property>
-    <property name="message_type">warning</property>
-    <property name="text" translatable="yes">File already exist</property>
-    <property name="secondary_text" translatable="yes">Please select another name for your html file.</property>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="messagedialog-vbox1">
-        <property name="can_focus">False</property>
-        <property name="margin_top">20</property>
-        <property name="margin_bottom">20</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="btnbox">
-            <property name="can_focus">False</property>
-            <property name="homogeneous">True</property>
-            <property name="layout_style">center</property>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <object class="GtkButton" id="button1">
-                <property name="label">gtk-ok</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="margin_top">20</property>
-                <property name="use_stock">True</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="-4">button1</action-widget>
-    </action-widgets>
-  </object>
-  <object class="GtkListStore" id="templateStorage">
-    <columns>
-      <!-- column-name templates -->
-      <column type="gchararray"/>
-    </columns>
   </object>
   <object class="GtkDialog" id="editTemplateModal">
     <property name="width_request">500</property>
@@ -1085,6 +902,191 @@
       <action-widget response="-4">editTemplate_cancel</action-widget>
     </action-widgets>
   </object>
+  <object class="GtkFileChooserDialog" id="folderChooserModal">
+    <property name="width_request">500</property>
+    <property name="height_request">500</property>
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Choose folder</property>
+    <property name="modal">True</property>
+    <property name="default_width">500</property>
+    <property name="default_height">500</property>
+    <property name="type_hint">normal</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="transient_for">mainWindow</property>
+    <property name="action">select-folder</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="folderChooserModa">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="filechooserdialog-action_area1">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="cancelBtn">
+                <property name="label">gtk-cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="openFolderBtn">
+                <property name="label">gtk-open</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-4">cancelBtn</action-widget>
+      <action-widget response="1">openFolderBtn</action-widget>
+    </action-widgets>
+  </object>
+  <object class="GtkFileChooserDialog" id="newFileModal">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Save File</property>
+    <property name="modal">True</property>
+    <property name="type_hint">dialog</property>
+    <property name="transient_for">mainWindow</property>
+    <property name="action">save</property>
+    <property name="do_overwrite_confirmation">True</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="filechooserdialog-vbox2">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="filechooserdialog-action_area2">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="newFileModal_cancel">
+                <property name="label">gtk-cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+                <signal name="clicked" handler="newFileModal_cancel_click" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="newFileModal_save">
+                <property name="label">gtk-save</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="has_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="has_default">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+                <signal name="clicked" handler="newFileModal_save_click" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-4">newFileModal_cancel</action-widget>
+      <action-widget response="1">newFileModal_save</action-widget>
+    </action-widgets>
+  </object>
+  <object class="GtkMessageDialog" id="msg_fileAlreadyExist">
+    <property name="can_focus">False</property>
+    <property name="valign">baseline</property>
+    <property name="title" translatable="yes">Warning!</property>
+    <property name="type_hint">dialog</property>
+    <property name="transient_for">newFileModal</property>
+    <property name="message_type">warning</property>
+    <property name="text" translatable="yes">File already exist</property>
+    <property name="secondary_text" translatable="yes">Please select another name for your html file.</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="messagedialog-vbox1">
+        <property name="can_focus">False</property>
+        <property name="margin_top">20</property>
+        <property name="margin_bottom">20</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="btnbox">
+            <property name="can_focus">False</property>
+            <property name="homogeneous">True</property>
+            <property name="layout_style">center</property>
+            <child>
+              <placeholder/>
+            </child>
+            <child>
+              <object class="GtkButton" id="button1">
+                <property name="label">gtk-ok</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="margin_top">20</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-4">button1</action-widget>
+    </action-widgets>
+  </object>
   <object class="GtkDialog" id="newFile_templatePicker">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Pick a template</property>
@@ -1245,9 +1247,5 @@
     <action-widgets>
       <action-widget response="-4">button3</action-widget>
     </action-widgets>
-  </object>
-  <object class="GtkTextBuffer" id="textbuffer1">
-    <property name="text" translatable="yes">Console output:
-</property>
   </object>
 </interface>
