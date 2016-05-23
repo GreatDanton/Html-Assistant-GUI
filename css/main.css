@@ -116,7 +116,7 @@ footer {
 }
 
 .navigation {
-  position: sticky;
+  position: static;
   top: 0;
   background-color: #fff;
   width: 100%;
@@ -159,6 +159,11 @@ a.nav-active-link {
   display: none;
 }
 
+.nav-container {
+  min-height: 48px;
+  position: relative;
+}
+
 
 /* MEDIA QUERIES */
 @media screen and (max-width: 550px) {
@@ -174,13 +179,16 @@ a.nav-active-link {
 
   .mobile a {
     padding: 0 5px;
-    border: none;
+    border-bottom: 2px solid transparent;
     line-height: 41px;
   }
 
   .mobile a:hover {
-    border: none;
-    color: #222;
+    border-bottom: 2px solid #1c90f3;
+  }
+
+  a.nav-active-link {
+    border-bottom: 2px solid #1c90f3;
   }
 
   .mobile-menu {
@@ -195,7 +203,7 @@ a.nav-active-link {
   }
 
   .mobile-modal {
-    position: sticky;
+    position: absolute;
     background-color: #fff;
     width: 100%;
     border-top: 1px solid #d8d8d8;
@@ -225,9 +233,6 @@ a.nav-active-link {
     transform: translate(0,0);
   }
 
-  section:first-of-type {
-    margin-top: 0;
-  }
 }
 @media screen and (max-width: 500px) {
   .quote {

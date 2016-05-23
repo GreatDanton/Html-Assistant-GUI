@@ -8,7 +8,7 @@ $(document).ready(function() {
     var id = $(this).attr('id');
     id = id.replace('-link', '');
     $('html, body').animate({
-      scrollTop: $('#' + id).offset().top - 40}, 'medium');
+      scrollTop: $('#' + id).offset().top - 70}, 'medium');
     });
 
   $('.icon-menu').click(function() {
@@ -21,19 +21,30 @@ $(document).ready(function() {
 
   var nav_top;
 
-  if ($('.mobile').is(':hidden')) {
-    nav_top = $('.navigation').offset().top;
-  } else {
-    nav_top = $('.mobile').offset().top;
+  // if ($('.mobile').is(':hidden')) {
+  //   nav_top = $('.navigation').offset().top;
+  // } else {
+  //   nav_top = $('.mobile').offset().top;
+  // }
+
+  nav_top = $('.nav-container').offset().top;
+
+  if ($(window).scrollTop() > nav_top) {
+    $('.navigation').addClass('nav-box-shadow');
+    $('.navigation').css('position', 'fixed');
+    $('.mobile-modal').css('position', 'fixed');
   }
 
 	$(document).on("scroll", function() {
-    // magic number, navigation 160px from top
-		if ($('.navigation').offset().top > nav_top) {
-      // console.log($('.navigation').offset().top);
+    // if viewport is below nav_top add fixed position to navigation
+		if ($(window).scrollTop() > nav_top) {
       $('.navigation').addClass('nav-box-shadow');
+      $('.navigation').css('position', 'fixed');
+      $('.mobile-modal').css('position', 'fixed');
 		} else {
 			$('.navigation').removeClass('nav-box-shadow');
+      $('.navigation').css('position', 'static');
+      $('.mobile-modal').css('position', 'absolute');
 		}
 	});
 
