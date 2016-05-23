@@ -20,13 +20,6 @@ $(document).ready(function() {
   });
 
   var nav_top;
-
-  // if ($('.mobile').is(':hidden')) {
-  //   nav_top = $('.navigation').offset().top;
-  // } else {
-  //   nav_top = $('.mobile').offset().top;
-  // }
-
   nav_top = $('.nav-container').offset().top;
 
   if ($(window).scrollTop() > nav_top) {
