@@ -1,9 +1,9 @@
 {
+    "path": "/home/jan/Documents/PROGRAMMING/Python/html_assistant/master/test_files",
+    "replaceEditor": "<div class=\"new_navigation\">\n    <ul>\n        <li> Home </li>\n        <li> About </li>\n        <li> Contact </li>\n    </ul>\n</div>",
     "latestFindAndReplace": "<div class=\"navigation",
     "templates": {
-        "Default": "<!DOCTYPE html>\n\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title></title>\n\t<meta name=\"author\" content=\"\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n</head>\n\n<body>\n\n</body>\n\n</html>",
-        "None": ""
-    },
-    "replaceEditor": "<div class=\"navigation\">\n\t<ul>\n\t\t<li> Home </li>\n\t\t<li> About </li>\n\t\t<li> Contact</li>\n\t<ul>\n</div>",
-    "path": "/home/jan/Documents/PROGRAMMING/Python/html_assistant/master/test_files"
+        "None": "",
+        "Default": "<!DOCTYPE html>\n\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title></title>\n\t<meta name=\"author\" content=\"\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n</head>\n\n<body>\n\n</body>\n\n</html>"
+    }
 }

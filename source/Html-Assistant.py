@@ -44,6 +44,100 @@ DATA = ""
 TEMPLATES = []
 PROGRAM_DIRECTORY = os.getcwd()
 
+# finds correct closing tag
+def find_correct_tags(search_for, text):
+    # -2 => search_for does not exist in text
+    # -3 => missing closing tag
+    # -4 => search_for is not supported tag
+    if search_for in text:
+        
+        # get correct opening and ending_tag
+        if '<div' in search_for:
+            starting_tag = '<div'
+            ending_tag = '</div'
+        elif '<footer' in search_for:
+            starting_tag = '<footer'
+            ending_tag =  '</footer'
+        elif '<head' in search_for:
+            starting_tag = '<head'
+            ending_tag = '</head'
+        elif '<ul' in search_for:
+            starting_tag = '<ul'
+            ending_tag = '</ul'
+        elif '<nav' in search_for:
+            starting_tag = '<nav'
+            ending_tag = '</nav'
+        elif '<section' in search_for:
+            starting_tag = '<section'
+            ending_tag = '</section'
+        elif '<article' in search_for:
+            starting_tag = '<article'
+            ending_tag = '</article'
+        elif '<button' in search_for:
+            starting_tag = '<button'
+            ending_tag = '</button'
+        else:
+            return (-4)
+        #str(search_for) + ' is not supported tag \n'
+        
+        # nested tags => <div> <div></div> </div>
+        # loop over text, check if there are nested tags and pick the right ending tag
+        starting_tag_pos = text.find(search_for)
+        
+        # check for nested tags
+        open_tag = text.find(starting_tag, starting_tag_pos + 1)
+        close_tag = text.find(ending_tag, starting_tag_pos + 1)
+        
+        # lower tag number means tag appears before the other one
+        # if new open_tag doesn't exist, return first closing tag
+        
+        # close tag is missing
+        if close_tag == -1:
+            return (-3) # I could use numbers -3 ?
+        
+        elif open_tag == -1:
+            ending_tag_pos = close_tag
+            ending_tag_pos = text.find('>', close_tag + 1)
+            return ([starting_tag_pos, ending_tag_pos])
+        
+        # if tags are not nested
+        elif open_tag > close_tag:
+            ending_tag_pos = close_tag
+            ending_tag_pos = text.find('>', close_tag + 1)
+            return ([starting_tag_pos, ending_tag_pos])
+        
+        # if tags are nested, ex:   <div>  <div></div>  </div>
+        elif open_tag < close_tag:
+            
+            # loop through all open and closing tags untill open_tag > close_tag
+            while True:
+                # search for open, close tag position
+                open_tag = text.find(starting_tag, open_tag + 1)
+                close_tag = text.find(ending_tag, close_tag + 1)
+                
+                # if closing tag is missing
+                if close_tag == -1:
+                    ending_tag_pos = -3
+                    break
+                # if open tag is missing
+                elif open_tag == -1:
+                    ending_tag_pos = close_tag
+                    ending_tag_pos = text.find('>', close_tag + 1)
+                    break
+                elif open_tag > close_tag:
+                    ending_tag_pos = close_tag
+                    ending_tag_pos = text.find('>', close_tag + 1)
+                    break 
+
+        # TODO: test this function in external file
+            
+            # return starting_tag and ending_tag positions
+            return ([starting_tag_pos, ending_tag_pos])
+               
+    # if search_for does not exist in file return
+    else:    
+        return (-2)
+        
 
 def replace(folder, search_for):
     # search in directory
@@ -76,49 +170,33 @@ def replace(folder, search_for):
         current_file_text = current_file.read()
         current_file.close()
 
-# if search_for is in current file
-        if (search_for in current_file_text):
-            start = current_file_text.find(search_for)
+# use new function
 
-            if ('<nav' in search_for):
-                ending_with = '</nav>'
-                end = current_file_text.find(ending_with, start)
-                end = current_file_text.find('>', end) + 1
-            elif ('<footer' in search_for):
-                ending_with = '</footer>'
-                end = current_file_text.find(ending_with, start)
-                end = current_file_text.find('>', end) + 1
-            elif ('<head' in search_for):
-                ending_with = '</head>'
-                end = current_file_text.find(ending_with, start)
-                end = current_file_text.find('>', end) + 1
+        start_end_position = find_correct_tags(search_for, current_file_text)
 
-# if div is in search_for check if navigation is made of nested divs
-            elif ('<div' in search_for):
-                open_tag = current_file_text.find("<div", start + 1)
-                close_tag = current_file_text.find("</div", start + 1)
-                if (close_tag == -1):
-                    console_end_iter = console.get_buffer().get_end_iter()
-                    console.get_buffer().insert(console_end_iter, file + " => please add closing </div> tag" + "\n")
-                    break 
-                elif (open_tag == -1):
-                    end = close_tag + 6
-                elif (close_tag < open_tag):
-                    end = close_tag + 6
-                else:
-                    while(close_tag > open_tag):
-                        open_tag = current_file_text.find("<div", open_tag + 1)
-                        close_tag = current_file_text.find("</div", close_tag + 1)
-                        if (close_tag == -1):
-                            console_end_iter = console.get_buffer().get_end_iter()
-                            console.get_buffer().insert(console_end_iter, file + " => please add closing </div> tag" + "\n")
-                            break 
-                        elif (open_tag == -1):
-                            end = close_tag + 6
-                            break
+        if start_end_position == -3:
+            console_end_iter = console.get_buffer().get_end_iter()
+            console.get_buffer().insert(console_end_iter, file + " => missing closing tag" + "\n")
+            print(file + " -> closing tag does not exist")
+            
+        elif start_end_position == -2:
+            console_end_iter = console.get_buffer().get_end_iter()
+            console.get_buffer().insert(console_end_iter, file + " => '" + str(search_for) + "'" + " does not exist \n")
+            print(file+ " " + str(search_for) + " -> does not exist")
+            
+        elif start_end_position == -4:
+            console_end_iter = console.get_buffer().get_end_iter()
+            console.get_buffer().insert(console_end_iter, file + " => '" + str(search_for) + "'" + " this html tag is not supported \n")
+            print(file + " -> this html tag is not supported")
+            
+        else:
+            start = start_end_position[0]
+            end = start_end_position[1] + 1
 
             final_text = current_file_text[0:start] + new_navigation_text + current_file_text[end:]
-# write file
+        
+        
+            # write to file
             output_file = open(file, 'w')
             output_file.write(final_text)
             output_file.close()
@@ -126,12 +204,7 @@ def replace(folder, search_for):
             console_end_iter = console.get_buffer().get_end_iter()
             console.get_buffer().insert(console_end_iter, file + " => Updated" + "\n")
             print(file + " -> Updated")
-        else:
-# tell user that element doesn't exist 
-            console_end_iter = console.get_buffer().get_end_iter()
-            console.get_buffer().insert(console_end_iter, file + " => this element does not exist" + "\n")
-            print(file + " -> this element does not exist")
-
+            
 # end of replace function
 
 
@@ -535,7 +608,8 @@ if os.path.isdir(DATA["path"]):
     html_files = os.listdir(DATA["path"])
     htmlFilesList = builder.get_object("htmlFilesList")
     for file in html_files:
-        htmlFilesList.append([file])
+        if file.endswith(".html"):
+            htmlFilesList.append([file])
 else:
     tb_projectPath.set_text("")
    
