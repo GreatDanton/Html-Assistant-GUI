@@ -593,36 +593,65 @@ window.set_title("Html Assistant")
 window.show_all()
 
 
+##### LOADING FROM CONFIG.JSON INTO RAM #####
 
-# load last project path from config.json, add path to
-# project path textbox and add files to TreeView
-with open('config.json') as data_file:
-    DATA = json.load(data_file)
+# if config.json file exist, load last project path to project path textbox
+# load last code, load templates, add files to TreeView
 
-for template in DATA["templates"]:
-    TEMPLATES.append(template)
+if os.path.isfile('config.json'):
+    with open('config.json') as data_file:
+        DATA = json.load(data_file)
 
-tb_projectPath = builder.get_object("tb_projectPath")
+    if 'templates' in DATA:
+        for template in DATA["templates"]:
+            TEMPLATES.append(template)
 
 # check if directory in path exist, set projectPath textbox,
 # add files to files list
-if os.path.isdir(DATA["path"]):
-    tb_projectPath.set_text(DATA["path"])
+    if os.path.isdir(DATA["path"]):
+        tb_projectPath = builder.get_object("tb_projectPath")
+        tb_projectPath.set_text(DATA["path"])
 
-    html_files = os.listdir(DATA["path"])
-    htmlFilesList = builder.get_object("htmlFilesList")
-    for file in html_files:
-        if file.endswith(".html"):
-            htmlFilesList.append([file])
+        html_files = os.listdir(DATA["path"])
+        htmlFilesList = builder.get_object("htmlFilesList")
+        for file in html_files:
+            if file.endswith(".html"):
+                htmlFilesList.append([file])
+    else:
+        tb_projectPath = builder.get_object("tb_projectPath")
+        tb_projectPath.set_text("")
+
+    if 'latestFindAndReplace' in DATA:
+        tb_findAndReplace = builder.get_object("replaceNavBox")
+        tb_findAndReplace.set_text(DATA["latestFindAndReplace"])
+
+    if 'replaceEditor' in DATA:
+# set text of find and replace tb and replaced code editor
+        replace_editor = builder.get_object("navigation_editor")
+        replace_editor.get_buffer().set_text(DATA["replaceEditor"])
+
+
+# if 'config.json' does not exist
 else:
-    tb_projectPath.set_text("")
+    config = {
+    "latestFindAndReplace": "",
+    "replaceEditor": "",
+    "templates": {
+        "None": "",
+        "Default": "<!DOCTYPE html>\n\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title></title>\n\t<meta name=\"author\" content=\"\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n</head>\n\n<body>\n\n</body>\n\n</html>"
+    },
+    "path": ""
+}
 
+    DATA = config
+    # append templates into TEMPLATES array
+    for template in DATA["templates"]:
+        TEMPLATES.append(template)
 
-tb_findAndReplace = builder.get_object("replaceNavBox")
-tb_findAndReplace.set_text(DATA["latestFindAndReplace"])
-
-replace_editor = builder.get_object("navigation_editor")
-replace_editor.get_buffer().set_text(DATA["replaceEditor"])
+    # create a file config.json
+    with open(PROGRAM_DIRECTORY + "/config.json", "w") as outfile:
+        json.dump(DATA, outfile, indent=4)
+# end of writing files
 
 
 # show Files column in Tree View
