@@ -57,6 +57,9 @@ def find_correct_tags(search_for, text):
         if '<div' in search_for:
             starting_tag = '<div'
             ending_tag = '</div'
+        elif '<a' in search_for:
+            starting_tag = '<a'
+            ending_tag = '</a'
         elif '<footer' in search_for:
             starting_tag = '<footer'
             ending_tag =  '</footer'
