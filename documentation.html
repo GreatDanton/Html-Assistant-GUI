@@ -44,7 +44,7 @@
       <a href="index.html">About</a>
       <a href="news.html">News</a>
       <a class="nav-active-link" href="documentation.html">Documentation</a>
-      <a href="https://github.com/GreatDanton/Html-Assistant-GUI/archive/0.1.0.zip" >Download</a>
+      <a href="https://github.com/GreatDanton/Html-Assistant-GUI/releases/download/0.2.0/Html_Assistant_0.2.0.zip">Download</a>
       <a href="https://github.com/GreatDanton/Html-Assistant-GUI" target="_blank"
       >View on Github</a>
   </div>
@@ -57,7 +57,7 @@
   </div>
 
   <div class="mobile-modal">
-    <a href="https://github.com/GreatDanton/Html-Assistant-GUI/archive/0.1.0.zip" >Download</a>
+    <a href="https://github.com/GreatDanton/Html-Assistant-GUI/releases/download/0.2.0/Html_Assistant_0.2.0.zip" >Download</a>
     <a href="https://github.com/GreatDanton/Html-Assistant-GUI" target="_blank"
     >View on Github</a>
   </div>
@@ -66,9 +66,19 @@
 <div class="container">
   <section>
     <div class="quote">
-    Unfortunately I did not have the time to thorougly test it, so before you
+    <p>Unfortunately I did not have the time to thorougly test it, so before you
     jump in and start using it on 100 page long websites,
     at least make a backup of your files.
+  </p>
+  <p>
+    If you would like to run Html Assistant in one click, make sure you edit your
+    path and icon inside Html Assitant.desktop file (use absolute path)
+  </p>
+  <p>
+    ex. <br>
+    Path=/path/to/your/location/ <br>
+    Icon=/path/to/your/location/icons/HAIcon.png
+  </p>
     </div>
 
 
@@ -86,32 +96,41 @@
         <section id="installation">
           <h2 class="underlined-title">1. Installation</h2>
           <p> Most of the guides, tend to forget about the newbies, that do not know what to do with source files obtained from Github, so I will try to describe everything in detail.</p>
-          <p> First you need to download source files (they are in source folder). Source folder should contain four items: </p>
+
+
+          <p> First you need to download files, click on the button below to
+          get the latest release of Html Assistant. After you extracted the files
+        you should have six items in the folder:</p>
           <ul>
-            <li> main.py </li>
+            <li> Html-Assistant.py </li>
             <li> assistant.glade </li>
             <li> style.css </li>
             <li> config.json </li>
+            <li> Html-Assistant.desktop </li>
+            <li> icons (folder)</li>
           </ul>
 
 
-          <a class="button button-primary" href="https://github.com/GreatDanton/Html-Assistant-GUI/archive/0.1.0.zip"> Download source files</a>
+          <a class="button button-primary" href="https://github.com/GreatDanton/Html-Assistant-GUI/releases/download/0.2.0/Html_Assistant_0.2.0.zip"> Download files</a>
 
           <a class="button button-primary" href="https://github.com/GreatDanton/Html-Assistant-GUI" target="_blank"> See on Github</a>
 
 
-          <p class="margin-25">Now delete all the folders that you don't need (keep
-          only source folder). Next follow the instruction below (1.1 or 1.2),
+          <p class="margin-25">Next follow the instruction below (1.1 or 1.2),
           according to your operating system. </p>
 
           <div class="quote">
             In case you are wondering what each of the files does:
             <ul style="margin: 10px">
-              <li> main.py - contains all python code </li>
+              <li> Html-Assistant.py - contains all python code </li>
               <li> assistant.glade - defines user interface </li>
               <li> style.css - changes style of the user interface </li>
               <li> config.json - it's like a database for Html Assistant.
               It contains templates, latest used project path, etc...</li>
+              <li> html-assistant.desktop - one click launcher for Html Assistant.
+                If you specified Path and Icon correctly, it should run
+               Html Assitant in with one click.</li>
+              <li> icons - folder which contains icons for Html Assistant
             </ul>
 
           </div>
@@ -200,7 +219,7 @@
           <br>
           <br>
           <div class="quote">
-            Keep in mind the navigation is not the only part of the html pages, that you can replace with this software. You can also use it to replace footer, div with certain class or id, etc...
+            Keep in mind the navigation is not the only part of the html pages, that you can replace with this software. You can also use it to replace footer, div with certain class or id, certain link, etc...
           </div>
 
         </section>
@@ -267,8 +286,6 @@
           <h2 class="underlined-title">5. Roadmap </h2>
           <ul>
             <li> Redesigned icon - in 48x48 px, 128x128 px , 256x256 px </li>
-            <li> Extra option that will turn html code into code for
-            embedding on your website - <i> Convert the characters '&', '<', '>', " (double quote), and ' (apostrophe), in a string to their corresponding HTML entities.</i></li>
           </ul>
           <div class="quote">
             If you have the time and will to implement any of the desired features
