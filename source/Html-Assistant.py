@@ -57,10 +57,7 @@ def find_correct_tags(search_for, text):
         if '<div' in search_for:
             starting_tag = '<div'
             ending_tag = '</div'
-        elif '<a' in search_for:
-            starting_tag = '<a'
-            ending_tag = '</a'
-        elif '<footer' in search_for:
+       elif '<footer' in search_for:
             starting_tag = '<footer'
             ending_tag =  '</footer'
         elif '<head' in search_for:
@@ -69,6 +66,15 @@ def find_correct_tags(search_for, text):
         elif '<ul' in search_for:
             starting_tag = '<ul'
             ending_tag = '</ul'
+        elif '<ol' in search_for:
+            starting_tag = '<ol'
+            ending_tag = '</ol'
+        elif '<link' in search_for:
+            starting_tag = '<link'
+            ending_tag = '</link'
+        elif '<li' in search_for:
+            starting_tag = '<li'
+            ending_tag = '</li'
         elif '<nav' in search_for:
             starting_tag = '<nav'
             ending_tag = '</nav'
@@ -81,6 +87,16 @@ def find_correct_tags(search_for, text):
         elif '<button' in search_for:
             starting_tag = '<button'
             ending_tag = '</button'
+        elif '<a' in search_for:
+            starting_tag = '<a'
+            ending_tag = '</a'
+        elif '<p' in search_for:
+            starting_tag = '<p'
+            ending_tag = '</p'
+        # if someone is replacing titles
+        elif '<h' in search_for:
+            starting_tag = '<h'
+            ending_tag = '</h'
         else:
             return (-4)
 
@@ -93,7 +109,7 @@ def find_correct_tags(search_for, text):
 
         # close tag is missing
         if close_tag == -1:
-            return (-3) # I could use numbers -3 ?
+            return (-3)
 
         # if open_tag doesn't exist, return first closing tag
         elif open_tag == -1:
