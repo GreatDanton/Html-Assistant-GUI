@@ -53,51 +53,20 @@ def find_correct_tags(search_for, text):
     # -4 => search_for is not supported tag
 
     if search_for in text:
-        # get correct opening and ending_tag
-        if '<div' in search_for:
-            starting_tag = '<div'
-            ending_tag = '</div'
-       elif '<footer' in search_for:
-            starting_tag = '<footer'
-            ending_tag =  '</footer'
-        elif '<head' in search_for:
-            starting_tag = '<head'
-            ending_tag = '</head'
-        elif '<ul' in search_for:
-            starting_tag = '<ul'
-            ending_tag = '</ul'
-        elif '<ol' in search_for:
-            starting_tag = '<ol'
-            ending_tag = '</ol'
-        elif '<link' in search_for:
-            starting_tag = '<link'
-            ending_tag = '</link'
-        elif '<li' in search_for:
-            starting_tag = '<li'
-            ending_tag = '</li'
-        elif '<nav' in search_for:
-            starting_tag = '<nav'
-            ending_tag = '</nav'
-        elif '<section' in search_for:
-            starting_tag = '<section'
-            ending_tag = '</section'
-        elif '<article' in search_for:
-            starting_tag = '<article'
-            ending_tag = '</article'
-        elif '<button' in search_for:
-            starting_tag = '<button'
-            ending_tag = '</button'
-        elif '<a' in search_for:
-            starting_tag = '<a'
-            ending_tag = '</a'
-        elif '<p' in search_for:
-            starting_tag = '<p'
-            ending_tag = '</p'
-        # if someone is replacing titles
-        elif '<h' in search_for:
-            starting_tag = '<h'
-            ending_tag = '</h'
-        else:
+        html_tags = [['<div', '</div'], ['<footer', '</footer'], ['<head', '</head'],
+                    ['<ul', '</ul'], ['<ol', '</ol'], ['<link', '</link'],
+                    ['<li', '</li'], ['<nav', '</nav'], ['<section', '</section'],
+                    ['<article', '</article'], ['<button', '</button'],
+                    ['<a', '</a'], ['<p', '</p'], ['<h', '</h']]
+
+        # if tag exist in search_for
+        for tag in html_tags:
+            if tag[0] in search_for:
+                starting_tag = tag[0]
+                ending_tag = tag[1]
+
+        # if starting_tag does not exist return
+        if not (starting_tag):
             return (-4)
 
         # loop over text, check if there are nested tags and pick the correct ending tag
