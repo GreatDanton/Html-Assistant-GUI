@@ -167,6 +167,10 @@ a.nav-active-link {
   position: relative;
 }
 
+.number-of-downloads {
+  margin-top: 40px;
+  text-align: center;
+}
 
 /* MEDIA QUERIES */
 @media screen and (max-width: 550px) {

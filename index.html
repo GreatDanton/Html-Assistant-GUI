@@ -109,7 +109,11 @@
       <p><strong> Current version is 0.2.0. </strong></p>
       <p>See News page for upcoming changes. </p>
       <a href="news.html" class="button">News </a>
+
+        <h2 class="number-of-downloads"></h2>
+
     </section>
+
 
 
   </div>
@@ -123,6 +127,21 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js">
   </script>
   <script src="js.js"></script>
+
+  <script>
+    // Get number of downloads for the latest version;
+    $(document).ready(function() {
+      var github_url = 'https://api.github.com/repos/GreatDanton/Html-Assistant-GUI/releases/latest';
+      $.getJSON(github_url, function(data){
+        var packages = data.assets;
+        var downloadCount = 0;
+        $.each(packages, function(key, val) {
+          downloadCount += val.download_count;
+        });
+        $('.number-of-downloads').html('Downloads Counter: ' +'<br>' + downloadCount);
+      });
+    });
+  </script>
 </body>
 
 </html>
