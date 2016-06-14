@@ -172,6 +172,10 @@ a.nav-active-link {
   text-align: center;
 }
 
+.news-content{
+  padding-left: 40px;
+}
+
 /* MEDIA QUERIES */
 @media screen and (max-width: 550px) {
   .navigation {
@@ -238,6 +242,10 @@ a.nav-active-link {
     visibility: visible;
     transition: 0.3s all ease;
     transform: translate(0,0);
+  }
+
+  .news-content {
+    padding-left: 10px;
   }
 
 }
