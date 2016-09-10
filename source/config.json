@@ -1,9 +1,9 @@
 {
-    "path": "/home/jan/Documents/PROGRAMMING/Python/html_assistant/master/test_files",
+    "latestFindAndReplace": "<a href=\"#\"",
+    "replaceEditor": "<a href=\"stuff\"> Link </a>",
+    "path": "random/path/",
     "templates": {
-        "None": "",
-        "Default": "<!DOCTYPE html>\n\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title></title>\n\t<meta name=\"author\" content=\"\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n</head>\n\n<body>\n\n</body>\n\n</html>"
-    },
-    "latestFindAndReplace": "<div class=\"class",
-    "replaceEditor": "<div class=\"new_class\">\n<div class=\"test\">\n    <ul>\n        <li> Home </li>\n        <li> About </li>\n        <li> Download </li>\n    </ul>\n</div>\n</div>"
+        "Default": "<!DOCTYPE html>\n\n<head>\n\t<meta charset=\"UTF-8\">\n\t<title></title>\n\t<meta name=\"author\" content=\"\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n</head>\n\n<body>\n\n</body>\n\n</html>",
+        "None": ""
+    }
 }

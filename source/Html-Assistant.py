@@ -59,6 +59,7 @@ def find_correct_tags(search_for, text):
                     ['<article', '</article'], ['<button', '</button'],
                     ['<a', '</a'], ['<p', '</p'], ['<h', '</h']]
 
+        starting_tag = '' 
         # if tag exist in search_for
         for tag in html_tags:
             if tag[0] in search_for:
@@ -66,9 +67,8 @@ def find_correct_tags(search_for, text):
                 ending_tag = tag[1]
 
         # if starting_tag does not exist return
-        if not (starting_tag):
+        if len(starting_tag) == 0:
             return (-4)
-
         # loop over text, check if there are nested tags and pick the correct ending tag
         starting_tag_pos = text.find(search_for)
 
@@ -169,7 +169,7 @@ def replace(folder, search_for):
             console_end_iter = console.get_buffer().get_end_iter()
             console.get_buffer().insert(console_end_iter, file \
              + " => '" + str(search_for) + "'" + " does not exist \n")
-            print(file+ " " + str(search_for) + " -> does not exist")
+            print(file+ " " + str(search_for) + " -> does not exist in text")
 
 # closing tag is missing
         elif start_end_position == -3:
@@ -182,7 +182,7 @@ def replace(folder, search_for):
         elif start_end_position == -4:
             console_end_iter = console.get_buffer().get_end_iter()
             console.get_buffer().insert(console_end_iter, file \
-             + " => '" + str(search_for) + "'" + " this html tag is not supported \n")
+             + " => '" + str(search_for) + "'" + " html tag is not supported \n")
             print(file + " -> this html tag is not supported")
 
         else:
@@ -221,7 +221,8 @@ class Handler:
 # append template title to tree view
         # append names from template to templateTreeView. On select show data from DATA in editor
         templateList.clear()
-        for template in DATA["templates"]:
+
+        for template in TEMPLATES:
             templateList.append([template])
 
         if len(TEMPLATES) >= 1:
@@ -234,7 +235,7 @@ class Handler:
     def templatePicker_row_click(self, selection):
         treeView = builder.get_object("newFile_templateTreeView")
         editor = builder.get_object("newFile_templateViewer")
-
+        templateName = '' # solves variable referenced before the assignment
 # get currently selected name from tree view
         selected = selection.get_selection()
         selected = selected.get_selected()
@@ -243,8 +244,9 @@ class Handler:
         if treeiter != None:
             templateName = model[treeiter][0]
 
-        #if templateName in TEMPLATES:
-        editor.get_buffer().set_text(DATA["templates"][templateName])
+        # set content of template in the viewer on the right
+        if templateName in DATA["templates"]:
+            editor.get_buffer().set_text(DATA["templates"][templateName])
 
     def newFile_templatePicker_ok_click(self, button):
         newFileModal = builder.get_object("newFileModal")
@@ -301,9 +303,8 @@ class Handler:
 
         templateList.clear()
 
-        for template in DATA["templates"]:
+        for template in TEMPLATES:
             templateList.append([template])
-            TEMPLATES.append(template)
 
 # select first row if 1 template exist
         if len(TEMPLATES) >= 1:
@@ -356,7 +357,6 @@ class Handler:
         selected = selected.get_selected()
 
 # remove selected row
-        print(selected[1])
         model, treeiter = selected
         if treeiter != None:
             delete_template_name = model[treeiter][0]
@@ -431,7 +431,7 @@ class Handler:
         templateTreeView = builder.get_object("templateTreeView")
         templateEditor = builder.get_object("editTemplate_editor")
         tb_templateName = builder.get_object("editTemplate_templateName")
-
+        fileName = ''
         selected = selection.get_selection()
         selected = selected.get_selected()
 
@@ -590,8 +590,14 @@ if os.path.isfile('config.json'):
     with open('config.json') as data_file:
         DATA = json.load(data_file)
 
+# sort templates by name, append into TEMPLATES global var
     if 'templates' in DATA:
+        template_arr = []
         for template in DATA["templates"]:
+            template_arr.append(template)
+            
+        template_arr.sort(key=str.lower)
+        for template in template_arr:
             TEMPLATES.append(template)
 
 # check if directory in path exist, set projectPath textbox,
